@@ -1,5 +1,3 @@
-import 'package:crypto_app_project/domain/favourites_db.dart';
-
 class FavoriteCoin {
   String email;
   String ids;

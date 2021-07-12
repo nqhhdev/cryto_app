@@ -1,6 +1,6 @@
+import 'package:crypto_app_project/app_routing.dart';
 import 'package:crypto_app_project/commion/social_button.dart';
-import 'package:crypto_app_project/presentation/login/ui/login_screen.dart';
-import 'package:crypto_app_project/presentation/register/ui/register_screen.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -58,10 +58,9 @@ class _SplashScreenState extends State<SplashScreen> {
                   children: [
                     TextButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => const LogInScreen()));
+                        Navigator.pushNamed(
+                            context, RouteDefine.loginScreen.name);
+                        // Navigator.push(
                       },
                       child: const Text('Login'),
                       style: TextButton.styleFrom(
@@ -77,10 +76,8 @@ class _SplashScreenState extends State<SplashScreen> {
                     const SizedBox(width: 8.0),
                     OutlinedButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => const RegisterScreen()));
+                        Navigator.pushNamed(
+                            context, RouteDefine.registerScreen.name);
                       },
                       child: const Text('Sign Up'),
                       style: TextButton.styleFrom(

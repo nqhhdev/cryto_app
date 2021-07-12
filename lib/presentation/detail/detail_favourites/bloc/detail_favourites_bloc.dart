@@ -19,7 +19,7 @@ class DetailFavouritesBloc
   DetailFavouritesBloc(this.coinUseCase) : super(DetailFavouritesInitial());
   CoinUseCase coinUseCase;
   List<Coin>? listcoinS;
-  List<Chart>? listChart;
+  // List<Chart>? listChart;
   var favorite = [];
   static const _key = '83217b9222f6dcd6b9cd647f9fcac354357d13d4';
   @override
@@ -33,11 +33,10 @@ class DetailFavouritesBloc
         final response = await coinUseCase.getCoin(_key, event.id);
         listcoinS = response;
         print(response);
-        final responseChart = await coinUseCase.getChart(_key, event.id);
-        listChart = responseChart;
-        print(responseChart);
-        yield LoadDetailFavouritesSuccessStatee(
-            listcoin: listcoinS, listChart: listChart);
+        // final responseChart = await coinUseCase.getChart(_key, event.id);
+        // listChart = responseChart;
+        // print(responseChart);
+        yield LoadDetailFavouritesSuccessStatee(listcoin: listcoinS);
       } catch (e) {
         yield LoadDetailFavouritesFailState();
       }

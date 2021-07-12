@@ -7,6 +7,7 @@ abstract class DetailFavouritesEvent extends Equatable {
   List<Object> get props => [];
 }
 
+// ignore: must_be_immutable
 class LoadDetailFavouritesEvent extends DetailFavouritesEvent {
   String id;
   LoadDetailFavouritesEvent({
@@ -14,6 +15,7 @@ class LoadDetailFavouritesEvent extends DetailFavouritesEvent {
   });
 }
 
+// ignore: must_be_immutable
 class AddFavoriteEvent extends DetailFavouritesEvent {
   String id;
   String email;

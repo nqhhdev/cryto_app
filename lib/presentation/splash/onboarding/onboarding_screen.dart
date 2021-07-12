@@ -1,8 +1,7 @@
+import 'package:crypto_app_project/app_routing.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-
-import 'package:crypto_app_project/presentation/splash/splash_screen.dart';
 
 // ignore: use_key_in_widget_constructors
 
@@ -33,20 +32,23 @@ class OnBoardingScreen extends StatelessWidget {
           done: Text('Read', style: TextStyle(fontWeight: FontWeight.w600)),
           onDone: () => goToHome(context),
           showSkipButton: true,
-          skip: Text('Skip'),
+          skip: Text(
+            'Skip',
+          ),
           onSkip: () => goToHome(context),
-          next: Icon(Icons.arrow_forward),
+          next: Icon(
+            Icons.arrow_forward,
+          ),
           dotsDecorator: getDotDecoration(),
           onChange: (index) => print('Page $index selected'),
-          globalBackgroundColor: Theme.of(context).primaryColor,
+          // globalBackgroundColor: Theme.of(context).primaryColor,
           skipFlex: 0,
           nextFlex: 0,
         ),
       );
 
-  void goToHome(context) => Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => SplashScreen()),
-      );
+  void goToHome(context) =>
+      Navigator.pushNamed(context, RouteDefine.splashScreen.name);
 
   Widget buildImage(String path) =>
       Center(child: Image.asset(path, width: 350));

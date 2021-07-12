@@ -48,7 +48,6 @@ dependencies:
   intl: ^0.17.0
   introduction_screen: null
   logger: any
-  material_floating_search_bar: ^0.3.4
   pretty_dio_logger: ^1.1.1
   retrofit: any
   rxdart: null

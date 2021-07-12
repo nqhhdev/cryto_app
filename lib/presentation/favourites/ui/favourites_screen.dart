@@ -1,7 +1,8 @@
+import 'package:crypto_app_project/app_routing.dart';
 import 'package:crypto_app_project/data/coin_list/api/coin_api.dart';
 import 'package:crypto_app_project/data/coin_list/repositories/coin_repository_impl.dart';
 import 'package:crypto_app_project/domain/coin_usecase/usecases/coin_usecase.dart';
-import 'package:crypto_app_project/presentation/detail/detail_favourites/ui/detail_favourites_screen.dart';
+
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -68,16 +69,12 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                           shrinkWrap: true,
                           itemCount: state.listCoin.length,
                           itemBuilder: (context, index) => ListTile(
-                            onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => DetailFavouritesScreen(
-                                    id: state.listCoin
-                                        .elementAt(index)
-                                        .id
-                                        .toString()),
-                              ),
-                            ),
+                            onTap: () => Navigator.pushNamed(
+                                context, RouteDefine.detailScreen.name,
+                                arguments: state.listCoin
+                                    .elementAt(index)
+                                    .id
+                                    .toString()),
                             title: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -205,6 +202,15 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                                                     );
                                                 Navigator.of(dialogContext)
                                                     .pop();
+                                                context
+                                                    .read<FavouritesBloc>()
+                                                    .add(LoadFavoriteEvent(
+                                                      email: FirebaseAuth
+                                                          .instance
+                                                          .currentUser!
+                                                          .email
+                                                          .toString(),
+                                                    ));
                                               },
                                               child: const Text('Ok'),
                                             ),

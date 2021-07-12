@@ -11,6 +11,7 @@ class DetailFavouritesInitial extends DetailFavouritesState {}
 
 class LoadingDetailFavouritesState extends DetailFavouritesState {}
 
+// ignore: must_be_immutable
 class LoadDetailFavouritesSuccessStatee extends DetailFavouritesState {
   List<Coin>? listcoin;
   List<Chart>? listChart;

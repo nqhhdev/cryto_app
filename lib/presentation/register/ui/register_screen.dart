@@ -1,12 +1,13 @@
+import 'package:crypto_app_project/app_routing.dart';
 import 'package:crypto_app_project/presentation/home/ui/home_screen.dart';
-import 'package:crypto_app_project/presentation/login/ui/login_screen.dart';
+
 import 'package:crypto_app_project/presentation/register/bloc/register_bloc.dart';
-import 'package:crypto_app_project/presentation/splash/splash_screen.dart';
+
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:flutter/cupertino.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -27,17 +28,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     registerBloc = BlocProvider.of<RegisterBloc>(context);
 
     return ScreenUtilInit(
-      builder: () => MaterialApp(
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          textTheme: GoogleFonts.nunitoTextTheme(
-            Theme.of(context).textTheme,
-          ),
-        ),
-        home: HomePage(),
-        debugShowCheckedModeBanner: false,
-      ),
-      designSize: const Size(360, 640),
+      builder: () => HomePage(),
     );
   }
 }
@@ -79,9 +70,9 @@ class _HomePageState extends State<HomePage> {
               ),
               BlocConsumer<RegisterBloc, RegisterState>(
                 listener: (context, state) {
-                  const snackBar = SnackBar(content: Text('error!'));
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   if (state is RegisterSucced) {
+                    const snackBar = SnackBar(content: Text('Success'));
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     emailController.text = '';
                     passwordController.text = '';
                     Navigator.push(context,
@@ -309,10 +300,7 @@ class _HomePageState extends State<HomePage> {
                       width: double.infinity,
                       child: TextButton(
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) => const LogInScreen()));
+                          Navigator.pop(context);
                         },
                         style: ButtonStyle(
                             backgroundColor:
@@ -335,10 +323,7 @@ class _HomePageState extends State<HomePage> {
                       width: double.infinity,
                       child: TextButton(
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) => SplashScreen()));
+                          Navigator.pop(context);
                         },
                         style: ButtonStyle(
                             backgroundColor:

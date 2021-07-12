@@ -5,7 +5,6 @@ import 'package:crypto_app_project/data/coin_list/models/coin_response.dart';
 import 'package:crypto_app_project/domain/coin_usecase/usecases/coin_usecase.dart';
 
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:crypto_app_project/data/coin_list/models/favourites.dart';
 
@@ -25,6 +24,7 @@ class FavouritesBloc extends Bloc<FavouritesEvent, FavouritesState> {
     FavouritesEvent event,
   ) async* {
     if (event is LoadFavoriteEvent) {
+      listFinal.clear();
       yield FavoriteLoadingState();
       FavoriteDatabase db = FavoriteDatabase();
       await db.openDB();

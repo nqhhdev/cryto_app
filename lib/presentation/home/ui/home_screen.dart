@@ -1,5 +1,4 @@
-import 'package:crypto_app_project/presentation/detail/detail_favourites/ui/detail_favourites_screen.dart';
-import 'package:crypto_app_project/presentation/favourites/ui/favourites_screen.dart';
+import 'package:crypto_app_project/app_routing.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -176,48 +175,70 @@ class _HomeScreenState extends State<HomeScreen> {
                                 (int index) => DataRow(
                                   cells: <DataCell>[
                                     DataCell(
-                                      Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            CircleAvatar(
-                                              child: state.listcurrency
-                                                      .elementAt(index)
-                                                      .logoUrl!
-                                                      .endsWith('.svg')
-                                                  ? SvgPicture.network(state
-                                                      .listcurrency
-                                                      .elementAt(index)
-                                                      .logoUrl!)
-                                                  : Image.network(state
-                                                      .listcurrency
-                                                      .elementAt(index)
-                                                      .logoUrl!),
-                                            ),
-                                            const SizedBox(width: 10),
-                                            Center(
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.end,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    state.listcurrency
+                                        Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              CircleAvatar(
+                                                child: state.listcurrency
                                                         .elementAt(index)
-                                                        .id!,
-                                                    style: const TextStyle(
-                                                        color: Colors.white),
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      Text(
-                                                        state.listcurrency
-                                                            .elementAt(index)
-                                                            .the1D!
-                                                            .priceChangePct!,
-                                                        style: TextStyle(
-                                                            fontSize: 12,
+                                                        .logoUrl!
+                                                        .endsWith('.svg')
+                                                    ? SvgPicture.network(state
+                                                        .listcurrency
+                                                        .elementAt(index)
+                                                        .logoUrl!)
+                                                    : Image.network(state
+                                                        .listcurrency
+                                                        .elementAt(index)
+                                                        .logoUrl!),
+                                              ),
+                                              const SizedBox(width: 10),
+                                              Center(
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      state.listcurrency
+                                                          .elementAt(index)
+                                                          .id!,
+                                                      style: const TextStyle(
+                                                          color: Colors.white),
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        Text(
+                                                          state.listcurrency
+                                                              .elementAt(index)
+                                                              .the1D!
+                                                              .priceChangePct!,
+                                                          style: TextStyle(
+                                                              fontSize: 12,
+                                                              color: double.parse(state
+                                                                          .listcurrency
+                                                                          .elementAt(
+                                                                              index)
+                                                                          .the1D!
+                                                                          .priceChangePct!) >
+                                                                      0
+                                                                  ? Colors.green
+                                                                  : Colors.red),
+                                                        ),
+                                                        Icon(
+                                                            double.parse(state
+                                                                        .listcurrency
+                                                                        .elementAt(
+                                                                            index)
+                                                                        .the1D!
+                                                                        .priceChangePct!) >
+                                                                    0
+                                                                ? Icons
+                                                                    .arrow_drop_up
+                                                                : Icons
+                                                                    .arrow_drop_down,
                                                             color: double.parse(state
                                                                         .listcurrency
                                                                         .elementAt(
@@ -227,108 +248,78 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                     0
                                                                 ? Colors.green
                                                                 : Colors.red),
-                                                      ),
-                                                      Icon(
-                                                          double.parse(state
-                                                                      .listcurrency
-                                                                      .elementAt(
-                                                                          index)
-                                                                      .the1D!
-                                                                      .priceChangePct!) >
-                                                                  0
-                                                              ? Icons
-                                                                  .arrow_drop_up
-                                                              : Icons
-                                                                  .arrow_drop_down,
-                                                          color: double.parse(state
-                                                                      .listcurrency
-                                                                      .elementAt(
-                                                                          index)
-                                                                      .the1D!
-                                                                      .priceChangePct!) >
-                                                                  0
-                                                              ? Colors.green
-                                                              : Colors.red),
-                                                    ],
-                                                  )
-                                                ],
+                                                      ],
+                                                    )
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                          ]),
-                                      onTap: () => Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              DetailFavouritesScreen(
-                                                  id: state.listcurrency
-                                                      .elementAt(index)
-                                                      .id
-                                                      .toString()),
-                                        ),
-                                      ),
-                                    ),
-                                    DataCell(
-                                      Center(
-                                          child: Text(
-                                        state.listcurrency
-                                            .elementAt(index)
-                                            .rank!,
-                                        style: const TextStyle(
-                                            color: Colors.white),
-                                      )),
-                                      onTap: () => Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              DetailFavouritesScreen(
-                                                  id: state.listcurrency
-                                                      .elementAt(index)
-                                                      .id
-                                                      .toString()),
-                                        ),
-                                      ),
-                                    ),
-                                    DataCell(
-                                      Text(
-                                        state.listcurrency
-                                            .elementAt(index)
-                                            .name!,
-                                        style: const TextStyle(
-                                            color: Colors.white),
-                                      ),
-                                      onTap: () => Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              DetailFavouritesScreen(
-                                                  id: state.listcurrency
-                                                      .elementAt(index)
-                                                      .id
-                                                      .toString()),
-                                        ),
-                                      ),
-                                    ),
-                                    DataCell(
-                                      Text(
-                                        double.parse(state.listcurrency
+                                            ]),
+                                        onTap: () => Navigator.pushNamed(
+                                            context,
+                                            RouteDefine.detailScreen.name,
+                                            arguments: state.listcurrency
                                                 .elementAt(index)
-                                                .price!)
-                                            .toStringAsFixed(3),
-                                        style: const TextStyle(
-                                            color: Colors.white),
-                                      ),
-                                      onTap: () => Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              DetailFavouritesScreen(
-                                                  id: state.listcurrency
-                                                      .elementAt(index)
-                                                      .id
-                                                      .toString()),
+                                                .id
+                                                .toString())),
+                                    DataCell(
+                                        Center(
+                                            child: Text(
+                                          state.listcurrency
+                                              .elementAt(index)
+                                              .rank!,
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                        )),
+                                        onTap: () => Navigator.pushNamed(
+                                            context,
+                                            RouteDefine.detailScreen.name,
+                                            arguments: state.listcurrency
+                                                .elementAt(index)
+                                                .id
+                                                .toString())
+                                        // onTap: () => Navigator.push(
+                                        //   context,
+                                        //   MaterialPageRoute(
+                                        //     builder: (context) =>
+                                        //         DetailFavouritesScreen(
+                                        //             id: state.listcurrency
+                                        //                 .elementAt(index)
+                                        //                 .id
+                                        //                 .toString()),
+                                        //   ),
+                                        // ),
                                         ),
-                                      ),
-                                    ),
+                                    DataCell(
+                                        Text(
+                                          state.listcurrency
+                                              .elementAt(index)
+                                              .name!,
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                        ),
+                                        onTap: () => Navigator.pushNamed(
+                                            context,
+                                            RouteDefine.detailScreen.name,
+                                            arguments: state.listcurrency
+                                                .elementAt(index)
+                                                .id
+                                                .toString())),
+                                    DataCell(
+                                        Text(
+                                          double.parse(state.listcurrency
+                                                  .elementAt(index)
+                                                  .price!)
+                                              .toStringAsFixed(3),
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                        ),
+                                        onTap: () => Navigator.pushNamed(
+                                            context,
+                                            RouteDefine.detailScreen.name,
+                                            arguments: state.listcurrency
+                                                .elementAt(index)
+                                                .id
+                                                .toString())),
                                   ],
                                 ),
                               ),

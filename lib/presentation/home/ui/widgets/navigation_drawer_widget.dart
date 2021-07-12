@@ -2,7 +2,7 @@ import 'package:crypto_app_project/presentation/home/ui/home_screen.dart';
 import 'package:crypto_app_project/presentation/favourites/ui/favourites_screen.dart';
 
 import 'package:crypto_app_project/presentation/logout/bloc/logout_bloc.dart';
-import 'package:crypto_app_project/presentation/splash/splash_screen.dart';
+import 'package:crypto_app_project/presentation/splash/splash/splash_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

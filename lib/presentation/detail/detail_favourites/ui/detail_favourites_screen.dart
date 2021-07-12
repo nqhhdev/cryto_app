@@ -181,8 +181,8 @@ class _DetailFavouritesScreenState extends State<DetailFavouritesScreen> {
                                     ),
                                   ),
                                   minX: 0,
-                                  maxY: 10,
-                                  minY: -10,
+                                  maxY: 10000,
+                                  minY: 0,
                                   maxX: 10,
                                   gridData: FlGridData(
                                     getDrawingHorizontalLine: (value) {

@@ -1,8 +1,9 @@
+import 'package:crypto_app_project/app_routing.dart';
 import 'package:crypto_app_project/commion/loading_dialog.dart';
-import 'package:crypto_app_project/presentation/home/ui/home_screen.dart';
+
 import 'package:crypto_app_project/presentation/login/bloc/login_bloc.dart';
 import 'package:crypto_app_project/presentation/register/ui/register_screen.dart';
-import 'package:crypto_app_project/presentation/splash/splash_screen.dart';
+
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -55,8 +56,9 @@ class _LogInHomeState extends State<LogInHome> {
         switch (state.runtimeType) {
           case LoginSucced:
             LoadingDialog.hideLoadingDialog;
-            Navigator.push(
-                context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+            // Navigator.push(
+            //     context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+            Navigator.pushNamed(context, RouteDefine.homeScreen.name);
             break;
           case LoginFailed:
             print("Login Error");
@@ -231,6 +233,8 @@ class _LogInHomeState extends State<LogInHome> {
                         width: double.infinity,
                         child: TextButton(
                           onPressed: () {
+                            // Navigator.pushNamed(
+                            //     context, RouteDefine.registerScreen.name);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -257,10 +261,13 @@ class _LogInHomeState extends State<LogInHome> {
                         width: double.infinity,
                         child: TextButton(
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => SplashScreen()));
+                            Navigator.pop(context);
+                            // Navigator.pushNamed(
+                            //     context, RouteDefine.splashScreen.name);
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (_) => SplashScreen()));
                           },
                           style: ButtonStyle(
                               backgroundColor:
