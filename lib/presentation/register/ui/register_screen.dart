@@ -1,4 +1,3 @@
-import 'package:crypto_app_project/app_routing.dart';
 import 'package:crypto_app_project/presentation/home/ui/home_screen.dart';
 
 import 'package:crypto_app_project/presentation/register/bloc/register_bloc.dart';

@@ -23,6 +23,12 @@ class DetailFavouritesScreen extends StatefulWidget {
 }
 
 class _DetailFavouritesScreenState extends State<DetailFavouritesScreen> {
+  List<Color> gradientColors = [
+    const Color(0xff23b6e6),
+    const Color(0xff02d39a),
+  ];
+
+  bool showAvg = false;
   @override
   Widget build(BuildContext context) {
     return _detailWidget();
@@ -33,7 +39,9 @@ class _DetailFavouritesScreenState extends State<DetailFavouritesScreen> {
       create: (context) => DetailFavouritesBloc(
         CoinUseCase(
           repository: CoinRepositoryImpl(
-            coinAPI: CoinAPI(Dio()),
+            coinAPI: CoinAPI(Dio(BaseOptions(
+              connectTimeout: 5000,
+            ))),
           ),
         ),
       )..add(
@@ -73,6 +81,10 @@ class _DetailFavouritesScreenState extends State<DetailFavouritesScreen> {
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 }
               },
+              buildWhen: (previous, current) =>
+                  current is! AddFavoriteFailState ||
+                  current is! AddingFavoriteState ||
+                  current is! AddFavoriteSuccessState,
               builder: (context, state) {
                 if (state is LoadingDetailFavouritesState) {
                   return const Center(child: CircularProgressIndicator());
@@ -125,139 +137,207 @@ class _DetailFavouritesScreenState extends State<DetailFavouritesScreen> {
                                   ],
                                 ),
                               ),
-                              child: LineChart(
-                                LineChartData(
-                                  titlesData: FlTitlesData(
-                                    show: true,
-                                    bottomTitles: SideTitles(
-                                      showTitles: true,
-                                      reservedSize: 35,
-                                      getTextStyles: (value) => const TextStyle(
-                                        color: Color(0xff68737d),
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16,
+                              child: Stack(
+                                children: <Widget>[
+                                  AspectRatio(
+                                    aspectRatio: 1.35,
+                                    child: Container(
+                                      decoration: const BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(18),
+                                          ),
+                                          color: Color(0xff232d37)),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            right: 18.0,
+                                            left: 12.0,
+                                            top: 24,
+                                            bottom: 12),
+                                        child: LineChart(
+                                          LineChartData(
+                                            gridData: FlGridData(
+                                              show: true,
+                                              drawVerticalLine: true,
+                                              getDrawingHorizontalLine:
+                                                  (value) {
+                                                return FlLine(
+                                                  color:
+                                                      const Color(0xff37434d),
+                                                  strokeWidth: 1,
+                                                );
+                                              },
+                                              getDrawingVerticalLine: (value) {
+                                                return FlLine(
+                                                  color:
+                                                      const Color(0xff37434d),
+                                                  strokeWidth: 1,
+                                                );
+                                              },
+                                            ),
+                                            titlesData: FlTitlesData(
+                                              show: true,
+                                              bottomTitles: SideTitles(
+                                                showTitles: true,
+                                                reservedSize: 22,
+                                                getTextStyles: (value) =>
+                                                    const TextStyle(
+                                                        color:
+                                                            Color(0xff68737d),
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 16),
+                                                getTitles: (value) {
+                                                  switch (value.toInt()) {
+                                                    case 0:
+                                                      return 'Mon';
+                                                    case 1:
+                                                      return 'Tue';
+                                                    case 2:
+                                                      return 'Wed';
+                                                    case 3:
+                                                      return 'Thu';
+                                                    case 4:
+                                                      return 'Fri';
+                                                    case 5:
+                                                      return 'Sat';
+                                                    case 6:
+                                                      return 'Sun';
+                                                  }
+                                                  return '';
+                                                },
+                                                margin: 8,
+                                              ),
+                                              leftTitles: SideTitles(
+                                                showTitles: true,
+                                                getTextStyles: (value) =>
+                                                    const TextStyle(
+                                                  color: Color(0xff67727d),
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 15,
+                                                ),
+                                                getTitles: (value) {
+                                                  switch (value.toInt()) {
+                                                    case 1:
+                                                      return '10k';
+                                                    case 3:
+                                                      return '30k';
+                                                    case 5:
+                                                      return '50k';
+                                                  }
+                                                  return '';
+                                                },
+                                                reservedSize: 28,
+                                                margin: 12,
+                                              ),
+                                            ),
+                                            borderData: FlBorderData(
+                                                show: true,
+                                                border: Border.all(
+                                                    color:
+                                                        const Color(0xff37434d),
+                                                    width: 1)),
+                                            minX: 0,
+                                            maxX: 7,
+                                            minY: state.minY,
+                                            maxY: state.maxY,
+                                            lineBarsData: [
+                                              LineChartBarData(
+                                                spots: [
+                                                  FlSpot(
+                                                      0,
+                                                      double.parse(state
+                                                              .listChart
+                                                              ?.elementAt(0)
+                                                              .prices
+                                                              .elementAt(0)
+                                                              .toString() ??
+                                                          "0.0")),
+                                                  FlSpot(
+                                                      1,
+                                                      double.parse(state
+                                                              .listChart
+                                                              ?.elementAt(0)
+                                                              .prices
+                                                              .elementAt(1)
+                                                              .toString() ??
+                                                          "0.0")),
+                                                  FlSpot(
+                                                      2,
+                                                      double.parse(state
+                                                              .listChart
+                                                              ?.elementAt(0)
+                                                              .prices
+                                                              .elementAt(2)
+                                                              .toString() ??
+                                                          "0.0")),
+                                                  FlSpot(
+                                                      3,
+                                                      double.parse(state
+                                                              .listChart
+                                                              ?.elementAt(0)
+                                                              .prices
+                                                              .elementAt(3)
+                                                              .toString() ??
+                                                          "0.0")),
+                                                  FlSpot(
+                                                      4,
+                                                      double.parse(state
+                                                              .listChart
+                                                              ?.elementAt(0)
+                                                              .prices
+                                                              .elementAt(4)
+                                                              .toString() ??
+                                                          "0.0")),
+                                                  FlSpot(
+                                                      5,
+                                                      double.parse(state
+                                                              .listChart
+                                                              ?.elementAt(0)
+                                                              .prices
+                                                              .elementAt(5)
+                                                              .toString() ??
+                                                          "0.0")),
+                                                  FlSpot(
+                                                      6,
+                                                      double.parse(state
+                                                              .listChart
+                                                              ?.elementAt(0)
+                                                              .prices
+                                                              .elementAt(6)
+                                                              .toString() ??
+                                                          "0.0")),
+                                                  FlSpot(
+                                                      7,
+                                                      double.parse(state
+                                                              .listChart
+                                                              ?.elementAt(0)
+                                                              .prices
+                                                              .elementAt(7)
+                                                              .toString() ??
+                                                          "0.0")),
+                                                ],
+                                                isCurved: true,
+                                                colors: gradientColors,
+                                                barWidth: 5,
+                                                isStrokeCapRound: true,
+                                                dotData: FlDotData(
+                                                  show: true,
+                                                ),
+                                                belowBarData: BarAreaData(
+                                                  show: true,
+                                                  colors: gradientColors
+                                                      .map((color) => color
+                                                          .withOpacity(0.3))
+                                                      .toList(),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
                                       ),
-                                      getTitles: (value) {
-                                        switch (value.toInt()) {
-                                          case 0:
-                                            return 'MAR';
-                                          case 2:
-                                            return 'JUN';
-                                          case 4:
-                                            return 'SEP';
-                                          case 6:
-                                            return 'SEP';
-                                          case 8:
-                                            return 'SEP';
-                                        }
-                                        return '';
-                                      },
-                                      margin: 8,
-                                    ),
-                                    leftTitles: SideTitles(
-                                      showTitles: true,
-                                      getTextStyles: (value) => const TextStyle(
-                                        color: Color(0xff67727d),
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15,
-                                      ),
-                                      getTitles: (value) {
-                                        switch (value.toInt()) {
-                                          case 0:
-                                            return '0';
-                                          case 2:
-                                            return '30k';
-                                          case 4:
-                                            return '50k';
-                                          case 6:
-                                            return '60k';
-                                          case 8:
-                                            return '50k';
-                                        }
-                                        return '';
-                                      },
-                                      reservedSize: 35,
-                                      margin: 12,
                                     ),
                                   ),
-                                  minX: 0,
-                                  maxY: 10000,
-                                  minY: 0,
-                                  maxX: 10,
-                                  gridData: FlGridData(
-                                    getDrawingHorizontalLine: (value) {
-                                      return FlLine(
-                                        color: const Color(0xff37434d),
-                                        strokeWidth: 0.2,
-                                      );
-                                    },
-                                    getDrawingVerticalLine: (value) {
-                                      return FlLine(
-                                        color: const Color(0xff37434d),
-                                        strokeWidth: 0.2,
-                                      );
-                                    },
-                                  ),
-                                  borderData: FlBorderData(
-                                    show: true,
-                                    border: Border.all(
-                                        color: const Color(0xff37434d),
-                                        width: 1),
-                                  ),
-                                  lineBarsData: [
-                                    LineChartBarData(
-                                      spots: [
-                                        FlSpot(
-                                          0,
-                                          double.parse(state.listcoin!
-                                              .elementAt(0)
-                                              .the1H!
-                                              .priceChangePct!),
-                                        ),
-                                        FlSpot(
-                                          1,
-                                          double.parse(state.listcoin!
-                                              .elementAt(0)
-                                              .the1H!
-                                              .priceChangePct!),
-                                        ),
-                                        FlSpot(
-                                          2,
-                                          double.parse(state.listcoin!
-                                              .elementAt(0)
-                                              .the1H!
-                                              .priceChangePct!),
-                                        ),
-                                        FlSpot(
-                                          3,
-                                          double.parse(state.listcoin!
-                                              .elementAt(0)
-                                              .the1H!
-                                              .priceChangePct!),
-                                        ),
-                                        FlSpot(
-                                          4,
-                                          double.parse(state.listcoin!
-                                              .elementAt(0)
-                                              .the1H!
-                                              .priceChangePct!),
-                                        ),
-                                        FlSpot(4.9, 5),
-                                        FlSpot(6.8, 2.5),
-                                        FlSpot(8, 4),
-                                        FlSpot(9.5, 3),
-                                        FlSpot(10, 10),
-                                      ],
-                                      isCurved: true,
-
-                                      barWidth: 1.2,
-                                      // dotData: FlDotData(show: false),
-                                      belowBarData: BarAreaData(
-                                        show: true,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                ],
                               ),
                             ),
                           ),

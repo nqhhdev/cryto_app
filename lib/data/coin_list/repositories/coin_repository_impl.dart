@@ -11,7 +11,7 @@ class CoinRepositoryImpl extends CoinRepository {
 
   @override
   Future<List<Coin>> getTicker(String key) async {
-    final response = await coinAPI.getTicker(key, 1, 100, "1h,1d,7d");
+    final response = await coinAPI.getTicker(key, 1, 70, "1h,1d,7d");
     print(response.first.toJson().toString());
     return response;
   }
@@ -23,8 +23,14 @@ class CoinRepositoryImpl extends CoinRepository {
   }
 
   Future<List<Chart>> getChart(String key, String id) async {
-    final response =
-        await coinAPI.getChart(key, id, "2021-06-01T00%3A00%3A00Z");
+    final day =
+        DateTime.now().subtract(Duration(days: 29)).toUtc().toIso8601String();
+    print("Days : $day");
+    final response = await coinAPI.getChart(
+      key,
+      id,
+      day,
+    );
     return response;
   }
 }

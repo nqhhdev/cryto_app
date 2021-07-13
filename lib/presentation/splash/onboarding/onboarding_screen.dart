@@ -11,14 +11,15 @@ class OnBoardingScreen extends StatelessWidget {
         body: IntroductionScreen(
           pages: [
             PageViewModel(
-              title: 'A reader lives a thousand lives',
-              body: 'The man who never reads lives only one.',
+              title: 'Bitcoin ',
+              body:
+                  'Bitcoin is a very exciting development, it might lead to a world currency.I think over the next decade it will grow to become one of the most important ways to pay for things and transfer assets.',
               image: buildImage('assets/images/1234.png'),
               decoration: getPageDecoration(),
             ),
             PageViewModel(
-              title: 'Featured Books',
-              body: 'Available right at your fingerprints',
+              title: 'Crypto Coin App',
+              body: 'App to make it easier for you to track coin',
               image: buildImage('assets/images/coin2.png'),
               decoration: getPageDecoration(),
             ),

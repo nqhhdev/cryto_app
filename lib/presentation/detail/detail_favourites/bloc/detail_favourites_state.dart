@@ -15,7 +15,12 @@ class LoadingDetailFavouritesState extends DetailFavouritesState {}
 class LoadDetailFavouritesSuccessStatee extends DetailFavouritesState {
   List<Coin>? listcoin;
   List<Chart>? listChart;
+  double? maxY;
+  double? minY;
+
   LoadDetailFavouritesSuccessStatee({
+    this.maxY,
+    this.minY,
     this.listcoin,
     this.listChart,
   });
