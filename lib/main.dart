@@ -15,7 +15,9 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  runApp(MyApp());
+  runApp(
+    MyApp(), // Wrap your app
+  );
 }
 
 // ignore: use_key_in_widget_constructors

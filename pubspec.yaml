@@ -42,10 +42,8 @@ dependencies:
   flutter_lints: ^1.0.3
   flutter_screenutil: null
   flutter_svg: null
-  fluttertoast: null
   font_awesome_flutter: null
   google_fonts: null
-  intl: ^0.17.0
   introduction_screen: null
   logger: any
   pretty_dio_logger: ^1.1.1
@@ -54,6 +52,9 @@ dependencies:
   search_page: null
   sqflite: ^2.0.0+3
   syncfusion_flutter_charts: ^19.1.69+1
+  flutter_localizations:
+   sdk: flutter
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
@@ -66,7 +67,7 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter.
 flutter:
-
+  generate: true
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
