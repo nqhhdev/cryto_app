@@ -44,3 +44,16 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+.metadata
+pubspec.lock
+
+
+# Ignore on project
+/lib/generated/
+*.g.dart
+/lib/gen/
+ios/RunnerArchive.xcarchive
+ios/build
+resources/langs/
+fastlane/report.xml
+.fvm/flutter_sdk
